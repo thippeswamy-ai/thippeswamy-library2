@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "admin_super_thippeswamy",
+    "username": "kthippeswamy109@gmail.com",
+    "password": "$2b$10$D8qWn5.G3FrCx16CwuBOr.DN1PIcPa1tdcR74BCWzXQ.60CUepzTy",
+    "fullName": "K. Thippeswamy (Super Admin)",
+    "email": "kthippeswamy109@gmail.com",
+    "role": "superadmin",
+    "permissions": {
+      "canManageBooks": true,
+      "canManageRequests": true,
+      "canManageAdmins": true
+    },
+    "createdAt": "2026-08-03T16:06:07.973Z"
+  },
+  {
+    "_id": "admin_super",
+    "username": "superadmin",
+    "password": "$2b$10$UlCl5DrWglSP/p3r3TVt7epCFxvi5hUICqwXJ/mEGRPWaRJxDAukS",
+    "fullName": "Chief Librarian (Super Admin)",
+    "email": "librarian@artscollegeanantapur.ac.in",
+    "role": "superadmin",
+    "permissions": {
+      "canManageBooks": true,
+      "canManageRequests": true,
+      "canManageAdmins": true
+    },
+    "createdAt": "2026-08-03T15:53:54.407Z"
+  },
+  {
+    "username": "ff",
+    "password": "$2b$10$OHSLibTDp6e58wSVIfMFM.3LMSeiFs2Iuju8gw98L05JXbWIZ1Zd6",
+    "fullName": "ff",
+    "email": "wdaddxqw@gmail.com",
+    "role": "admin",
+    "permissions": {
+      "canManageBooks": true,
+      "canManageRequests": true,
+      "canManageAdmins": false
+    },
+    "createdAt": "2026-08-03T16:00:10.918Z",
+    "_id": "admin_1785772810919"
+  }
+]

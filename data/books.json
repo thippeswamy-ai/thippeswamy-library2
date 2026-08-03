@@ -1,0 +1,20 @@
+[
+  {
+    "title": "gdg",
+    "author": "dgd",
+    "category": "Competitive Books",
+    "price": 44,
+    "description": "",
+    "coverImage": "/assets/default-cover.jpg",
+    "availability": "Available",
+    "location": {
+      "floor": "s",
+      "section": "g",
+      "rack": "s",
+      "shelf": "g",
+      "row": "g"
+    },
+    "_id": "book_1785772735534",
+    "createdAt": "2026-08-03T15:58:55.534Z"
+  }
+]
