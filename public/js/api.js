@@ -1,4 +1,22 @@
-const API_BASE = '/api';
+const API_BASE = (typeof window !== 'undefined' && window.API_BASE_URL) 
+  || localStorage.getItem('API_BASE_URL') 
+  || '/api';
+
+async function handleResponse(res) {
+  const contentType = res.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return res.json();
+  }
+  const text = await res.text();
+  if (!res.ok) {
+    throw new Error(`Server returned status ${res.status}: Backend API server is unreachable or not running.`);
+  }
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    throw new Error(`Received invalid JSON response from server. Check backend hosting configuration.`);
+  }
+}
 
 const API = {
   // Books
@@ -7,17 +25,17 @@ const API = {
     if (search) params.append('search', search);
     if (category) params.append('category', category);
     const res = await fetch(`${API_BASE}/books?${params.toString()}`);
-    return res.json();
+    return handleResponse(res);
   },
 
   async getBookStats() {
     const res = await fetch(`${API_BASE}/books/stats`);
-    return res.json();
+    return handleResponse(res);
   },
 
   async getBookById(id) {
     const res = await fetch(`${API_BASE}/books/${id}`);
-    return res.json();
+    return handleResponse(res);
   },
 
   async addBook(formData, token) {
@@ -26,7 +44,7 @@ const API = {
       headers: { 'Authorization': `Bearer ${token}` },
       body: formData
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   async updateBook(id, formData, token) {
@@ -35,7 +53,7 @@ const API = {
       headers: { 'Authorization': `Bearer ${token}` },
       body: formData
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   async deleteBook(id, token) {
@@ -43,7 +61,7 @@ const API = {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   // Student Requests
@@ -53,7 +71,7 @@ const API = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestData)
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   async getRequests(token, status = '', search = '') {
@@ -63,14 +81,14 @@ const API = {
     const res = await fetch(`${API_BASE}/requests?${params.toString()}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   async getRequestStats(token) {
     const res = await fetch(`${API_BASE}/requests/stats`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   async updateRequestStatus(id, statusData, token) {
@@ -82,7 +100,7 @@ const API = {
       },
       body: JSON.stringify(statusData)
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   // Auth & Admin Management
@@ -92,14 +110,14 @@ const API = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   async getAdmins(token) {
     const res = await fetch(`${API_BASE}/auth/admins`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   async addAdmin(adminData, token) {
@@ -111,7 +129,7 @@ const API = {
       },
       body: JSON.stringify(adminData)
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   async deleteAdmin(id, token) {
@@ -119,7 +137,7 @@ const API = {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    return res.json();
+    return handleResponse(res);
   },
 
   async resetAdminPassword(id, newPassword, token) {
@@ -131,6 +149,6 @@ const API = {
       },
       body: JSON.stringify({ newPassword })
     });
-    return res.json();
+    return handleResponse(res);
   }
 };

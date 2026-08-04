@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast(res.message || 'Login failed', 'error');
       }
     } catch (err) {
-      showToast('Login request failed', 'error');
+      showToast(err.message || 'Login request failed', 'error');
     }
   });
 
